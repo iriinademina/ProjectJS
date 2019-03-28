@@ -89,6 +89,7 @@ class Main extends HTMLElement {
      containerCards.className = "container-card"
 
      let counter
+     this.result = []
 
      // function getCounter = function (value) {
      //    counter = value

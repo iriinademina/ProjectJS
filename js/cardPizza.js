@@ -18,7 +18,7 @@ class CardPizza extends HTMLElement {
       //  this.text = ""
         let orderButton = this.createElem ('button', wrapper)
         orderButton.innerText = "ЗАКАЗАТЬ"
-        let result = []
+        //let result = []
         //orderButton.onclick = this.showColor.bind(this)
     orderButton.onclick = function (event) {
         let el =  document.getElementsByTagName('main-pizza')[0]
@@ -29,7 +29,7 @@ class CardPizza extends HTMLElement {
         el.setAttribute ('basket',res.name)
 
       var local = Object.assign ({}, {name : res.name , startTime: new Date().getTime()})
-      result.push(local)
+      el.result.push(local)
       localStorage.setItem ( "history",JSON.stringify(result))
     }))
       //let el =  document.getElementsByTagName('main-pizza')[0]
