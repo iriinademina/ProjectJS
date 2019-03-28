@@ -117,6 +117,6 @@ this.addName = function () {
 // padding: 10px;
 customElements.define ( 'basket-mag', Basket )
 //  height: auto;
-// let elem = document.createElement ( 'basket-mag' )
-// document.body.appendChild ( elem )
+let elem = document.createElement ( 'basket-mag' )
+document.body.appendChild ( elem )
 // elem.setAttribute ("maxWidth","200px")

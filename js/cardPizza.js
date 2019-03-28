@@ -18,9 +18,9 @@ class CardPizza extends HTMLElement {
       //  this.text = ""
         let orderButton = this.createElem ('button', wrapper)
         orderButton.innerText = "ЗАКАЗАТЬ"
-
+    let result = []
         //orderButton.onclick = this.showColor.bind(this)
-      orderButton.onclick = function (event) {
+    orderButton.onclick = function (event) {
         let el =  document.getElementsByTagName('main-pizza')[0]
         //result.push(event.target.id)
       var local = Object.assign ({}, {name : "gggg" , startTime: new Date().getTime()})
@@ -49,7 +49,6 @@ class CardPizza extends HTMLElement {
              return shadowStyles
         }
 
-        let result = []
 
       //  function getShadow
         //
@@ -141,9 +140,8 @@ class CardPizza extends HTMLElement {
              opacity : 0;
              transition: 1s ease;
              transform: scale(0) rotate(90deg);
-             display: flex;
-             align-content:center;
-
+             padding: 60px 20px 0 20px;
+             text-align: center;
          }
          .container:hover .container-text {
              background: rgba(21,51,68,0.45);
@@ -176,7 +174,7 @@ class CardPizza extends HTMLElement {
              left: 0;
              width: 100%;
              height: 0;
-             background: rgba(255,255,255,0.3);
+             background: rgba(21,51,68,0.2);
              border-radius: 5px;
              transition: all .7s ease;
         }
@@ -194,11 +192,11 @@ class CardPizza extends HTMLElement {
   `
 }
 
-// sendCounter(event) {
-//    let event = new Event("couner");
-//    dispatchEvent(new Event('counter'))
-// }
 
+
+
+//rgba(21,51,68,0.2);
+ //rgba(255,255,255,0.3);
  showColor (event) {
 //   document.getElementsByTagName('main-pizza')[0].setAttribute ('flag',"1")
    // document.getElementsByTagName('main-pizza')[0]
@@ -220,9 +218,9 @@ class CardPizza extends HTMLElement {
        .then(res => res.json()
          .then(res => {
             el.setAttribute ('basket',res.name)
-            result.push(res.name)
+            //result.push(res.name)
             console.log(res)
-            console.log(result)
+            //console.log(result)
          })
       )
 
@@ -232,5 +230,5 @@ class CardPizza extends HTMLElement {
 }
 customElements.define ( 'card-pizza', CardPizza )
 
- // const card = document.body.appendChild (
- //   document.createElement ( 'card-pizza' ))
+ const card = document.body.appendChild (
+   document.createElement ( 'card-pizza' ))
