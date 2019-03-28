@@ -26,7 +26,7 @@ class CardPizza extends HTMLElement {
         fetch (`http://localhost:3000/cards/${event.target.id}`)
            .then(res => res.json()
              .then(res => {
-               el.setAttribute ('basket',res.name)
+        el.setAttribute ('basket',res.name)
 
       var local = Object.assign ({}, {name : res.name , startTime: new Date().getTime()})
       result.push(local)
@@ -145,7 +145,7 @@ class CardPizza extends HTMLElement {
              opacity : 0;
              transition: 1s ease;
              transform: scale(0) rotate(90deg);
-             padding: 60px 20px 0 20px;
+             padding: 40px 20px 0 20px;
              text-align: center;
          }
          .container:hover .container-text {
@@ -162,7 +162,7 @@ class CardPizza extends HTMLElement {
               display : block;
               min-width: 200px;
               margin: 0 auto;
-              padding: 12px 60px;
+              padding: 12px 20px;
               background: ${this.getAttribute("background")};
               border-radius: 44px;
               border:none;
@@ -232,6 +232,3 @@ class CardPizza extends HTMLElement {
 
 }
 customElements.define ( 'card-pizza', CardPizza )
-
- const card = document.body.appendChild (
-   document.createElement ( 'card-pizza' ))

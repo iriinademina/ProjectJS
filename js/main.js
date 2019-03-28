@@ -36,7 +36,7 @@ class Main extends HTMLElement {
         button {
              display : inline-block;
              min-width: 250px;
-             padding: 12px 60px;
+             padding: 12px 20px;
              background: #ff8000;
              border-radius: 44px;
              border:none;

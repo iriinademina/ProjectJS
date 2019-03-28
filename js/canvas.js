@@ -218,7 +218,7 @@ fillPart2 (counter) {
           console.log(this.choiseAngle)
           this.drawParts()
     }.bind(this)
-   
+
     event.target [`on${event.type}`] = null
  })
 }
