@@ -31,9 +31,9 @@ class CardPizza extends HTMLElement {
       var local = Object.assign ({}, {name : res.name , startTime: new Date().getTime()})
       result.push(local)
       localStorage.setItem ( "history",JSON.stringify(result))
-    })
+    }))
       //let el =  document.getElementsByTagName('main-pizza')[0]
-
+}
 
         this.addPicture = function () {
             picture.src = `${this.getAttribute("src")}`
