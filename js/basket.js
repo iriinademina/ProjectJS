@@ -19,17 +19,22 @@ class Basket extends HTMLElement {
     let header = this.createElem ('h1',textContainer)
     header.innerText = "Ваша корзина пуста!"
     let text = this.createElem ('p',textContainer)
+    let result = []
     text.onclick = function (event) {
       // name.innerText = document.getElementsByTagName('main-pizza')[0]
       //      .getAttribute('basket')
       let info = JSON.parse (localStorage.getItem ( "history"))
-      info.forEach ((item) => name.innerText = item.name)
+      result = info
+      console.log(result)
+      result.forEach ((item) => {
+        let order = this.createElem ('p', textContainer)
+        order.innerText = item.name})
     }
     text.className = "defoltText"
     text.innerText = 'Добавляйте пиццу в корзину при помощи кнопки "Заказать"'
    // контейнер куда я сложу заказы
     let orderContaier = this.createElem ('div', textContainer)
-    let name = this.createElem ('span', orderContaier)
+    //let name = this.createElem ('span', orderContaier)
     let price = this.createElem ('span', orderContaier)
 
   //  this.content = []
@@ -108,6 +113,9 @@ this.addName = function () {
               }
               p  {
                 padding: 8px;
+              }
+              .container-basket div {
+                width: 50%;
               }
           `
   }
