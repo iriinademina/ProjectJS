@@ -30,7 +30,7 @@ class CardPizza extends HTMLElement {
 
       var local = Object.assign ({}, {name : res.name , startTime: new Date().getTime()})
       el.result.push(local)
-      localStorage.setItem ( "history",JSON.stringify(result))
+      localStorage.setItem ( "history",JSON.stringify(el.result))
     }))
       //let el =  document.getElementsByTagName('main-pizza')[0]
 }
