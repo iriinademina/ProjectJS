@@ -20,8 +20,9 @@ class Basket extends HTMLElement {
     header.innerText = "Ваша корзина пуста!"
     let text = this.createElem ('p',textContainer)
     text.onclick = function (event) {
-      name.innerText = document.getElementsByTagName('main-pizza')[0]
-           .getAttribute('basket')
+      // name.innerText = document.getElementsByTagName('main-pizza')[0]
+      //      .getAttribute('basket')
+      name.innerText = localStorage.getItem ( "history")
     }
     text.className = "defoltText"
     text.innerText = 'Добавляйте пиццу в корзину при помощи кнопки "Заказать"'
