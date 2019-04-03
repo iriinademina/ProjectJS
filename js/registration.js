@@ -2,34 +2,42 @@ class Registration extends HTMLElement {
     constructor () {
       super ()
       this.container = this.createElem ('div')
+      this.container.className = "wrapper"
       let shadow = this.attachShadow ( { mode: 'open' })
       shadow.appendChild ( this.container )
       let style = document.createElement ( 'style' )
       style.textContent =
             `
-              div {
+              .wrapper {
                 box-sizing: border-box;
                 max-width: 650px;
-                margin: 0 auto;
+                margin: 100px auto 0;
                 overflow: hidden;
                 border-radius: 5px;
                 background-color: #a7c6bb;
                 padding: 20px;
                 position:relative;
-                left : -9999px;
+
+              }
+              .container-button {
+                display: flex;
+                justify-content: center;
+                margin-top: 10px;
               }
 
               button {
                   display : inline-block;
                   min-width: 250px;
-                  padding: 12px 60px;
+                  padding: 12px 20px;
                   background: #ff8000;
                   border-radius: 44px;
                   border:none;
                   color: #ffffff;
                   outline : none;
                   position : relative;
-                  margin-left: 10px;
+             }
+             button:nth-child(even) {
+                 margin-left: 15px;
              }
              button:before {
       	          content:'';
@@ -42,38 +50,29 @@ class Registration extends HTMLElement {
       	          border-radius: 44px;
                   transition: all 0.7s ease;
               }
-                 button:hover:before {
+              button:hover:before {
       	             width: 100%;
               }
               input {
-                width: 100%;
-                padding: 12px 25px;
-                margin: 8px 0;
-                display: inline-block;
-                border-radius: 4px;
-                box-sizing: border-box;
-                background-color:#f2f2f2;
+                    width: 100%;
+                    padding: 12px 25px;
+                    margin: 8px 0;
+                    display: inline-block;
+                    border-radius: 4px;
+                    box-sizing: border-box;
+                    background-color:#f2f2f2;
               }
-              button:hover {
-                background-color: #ff8533;
-                transition: background-color 0.2s;
+
+              p {
+                   text-align:center;
+                   color: #f00c0c;
               }
+
             `
      shadow.appendChild ( style )
-//  border: 1px solid #ccc;
-// Кнопка регистрации (должна быть в общей странице)
-
-     // this.testBtn = this.createElem ('button')
-     // shadow.appendChild ( this.testBtn )
-     // this.testBtn.innerText = "Зарегистрироваться"
-     // this.testBtn.onclick = this.showForm.bind(this)
-// кнопка войти  (должна быть в общей странице)
-     // this.LogInBtn = this.createElem ('button')
-     // shadow.appendChild ( this.LogInBtn )
-     // this.LogInBtn.innerText = "Войти"
-     // this.LogInBtn.onclick = this.showFormLogIn.bind(this)
 
      this.formBlock = this.createElem ('form', this.container)
+
      this.userLabel = this.createElem ('label', this.formBlock)
      this.userLabel.innerText = "User name:"
      this.userLabel.htmlFor = "name_field"
@@ -97,126 +96,102 @@ class Registration extends HTMLElement {
      this.password.id = "pass_field"
      this.password.placeholder = "Введите пароль"
 
-     this.regButton = this.createElem ('button',this.container)
-     this.regButton.innerText = "Зарегистрироваться"
+     this.contButtons = this.createElem ('div',this.container)
+     this.contButtons.className = "container-button"
+
+     this.regButton = this.createElem ('button',this.contButtons)
+     this.regButton.innerText = "ЗАРЕГИСТРИРОВАТЬСЯ"
      this.regButton.onclick = this.sendData.bind(this)
 
-     this.LogInButton = this.createElem ('button',this.container)
-     this.LogInButton.innerText = "Войти"
-     this.LogInButton.onclick = this.showFormLogIn.bind(this)
+     this.LogInButton = this.createElem ('button',this.contButtons)
+     this.LogInButton.innerText = "ВОЙТИ"
+     this.LogInButton.onclick = this.showLogIn.bind(this)
 
      this.message = this.createElem ('p',this.container)
-     this.showForm()
+
 }
-// Наследуемый метод
-  createElem ( tagName, container ) {
-        return  ( !container ? document.body : container )
-                  .appendChild (
+
+    createElem ( tagName, container ) {
+          return  ( !container ? document.body : container )
+                    .appendChild (
                             document.createElement ( tagName )
-                             )
+                     )
               }
 // функция сброса инпутов
- resetForm () {
-   let inputs = [
-     this.userName,
-     this.password,
-     this.email
-   ]
+    resetForm () {
+        let inputs = [
+            this.userName,
+            this.password,
+            this.email
+        ]
 
-   inputs.forEach (input => {
-       input.value = ""
-       input.style.border = "1px solid #ccc"
-       this.message.innerText = ""
-     })
- }
+        inputs.forEach (input => {
+            input.value = ""
+            input.style.border = "1px solid #ccc"
+            this.message.innerText = ""
+        })
+    }
 
  // Функция валидации ввода email
-   validateEmail (email) {
-     let re =  /\S+@\S+\.\S+/
-     return re.test(email)
-   }
+    validateEmail (email) {
+        let re =  /\S+@\S+\.\S+/
+        return re.test(email)
+    }
 
-// валидация пароля
+    sendAnswer () {
+        this.message.innerText = "Неккоректный e-mail"
+        this.email.style.border = "1px solid red"
+    }
 
-   sendAnswer () {
-     this.message.innerText = "Email fail"
-     this.email.style.border = "1px solid red"
-   }
-
-  checkEmail () {
-    this.validateEmail (this.email.value) ?
-    this.message.innerText = "Email not error":
+    checkEmail () {
+        if (!this.validateEmail (this.email.value)){
             this.sendAnswer ()
-  }
+            return false
+       }
+    }
 
  // Скрыть / показать инпуты
-  hideInputs (param) {
-    let dspl = param ? "none" : "inline-block"
-  //  let text = param ? "Войти" : "Зарегистрироваться"
-    this.userName.style.display = dspl
-    this.userLabel.style.display = dspl
-    //this.regButton.innerText = text
-  }
-
-// Показываем форму регистрации
-  showForm (event) {
-      this.resetForm ()
-      this.hideInputs (false)
-      TweenMax.fromTo( this.container, 1,
-  			{
-  				display: "none",
-  				left: `${window.innerWidth/2}`,
-  			},
-  			{
-  				display: "block",
-          zIndex: 1,
-  				left: 0,
-  				ease: Back.easeOut
-  			} )
-    /// this.regButton.onclick = this.sendData.bind(this)
-   }
-// Показываем форму для входа
-showFormLogIn (event) {
-    this.resetForm ()
-    //this.hideInputs (true)
-    this.LogInButton.onclick = this.LogIn.bind(this)
-
-    //this.regButton.onclick = this.sendData.bind(this)
-}
-
-// Функция валидации на заполненные поля
-  checkInputs () {
-      let inputs = [
-        this.userName,
-        this.password,
-        this.email
-      ]
-
-       inputs.forEach (input => {
-           !input.value ? input.style.border = "1px solid red" :
-                                    input.style.border = "1px solid #ccc"
-         })
-  }
-
- async sendData (event){
-    this.hideInputs (false)
-    let users = await fetch('http://localhost:3000/users')
-              .then(response => response.json())
-    if (!this.password.value || !this.email.value || !this.userName.value) {
-      this.checkInputs ()
-      this.message.innerText = "Заполните все поля"
-      return
+    hideInputs (param) {
+        let dspl = param ? "none" : "inline-block"
+        this.userName.style.display = dspl
+        this.userLabel.style.display = dspl
     }
-    this.checkInputs ()
-    this.message.innerText = ""
-    this.checkEmail ()
-    let userkey = Sha256.hash ( this.password.value + this.email.value)
-    let user = users.some (user => user.key === userkey)
-    if (user) {
-       this.message.innerText = "Пользователь зарегистрирован"
-       return
-     }
-       fetch ('http://localhost:3000/users',
+
+    checkInputs () {
+         let inputs = [
+            this.userName,
+            this.password,
+            this.email
+         ]
+        let counter = 0
+        inputs.forEach (input => {
+             input.style.border = "1px solid #ccc"
+            !input.value ? input.style.border = "1px solid red" :
+                                    ++counter
+        })
+        return counter
+    }
+
+    showRegForm () {
+        this.hideInputs (false)
+        this.LogInButton.onclick = this.showLogIn.bind(this)
+        this.regButton.onclick = this.sendData.bind(this)
+    }
+
+    async sendData (event) {
+        if(!this.checkInputs()) {
+            this.message.innerText = "Заполните все поля"
+            return
+        }
+        let users = await fetch('http://localhost:3000/users')
+                .then(response => response.json())
+        let userkey = Sha256.hash ( this.password.value + this.email.value)
+        let user = users.some (user => user.key === userkey)
+        if (user) {
+            this.message.innerText = "Пользователь зарегистрирован"
+            return
+        }
+        fetch ('http://localhost:3000/users',
            {
              method: 'POST',
                  headers: {
@@ -233,27 +208,34 @@ showFormLogIn (event) {
                          response => console.log ( response )
                       )
                     )
-        }
-
-  // Функция входа LogIn + запись куков
-
-  async LogIn () {
-     //this.resetForm ()
-       this.hideInputs (true)
-       let users = await fetch('http://localhost:3000/users')
-                 .then(response => response.json())
+        this.message.style.color = "green"
+        this.message.innerText = "Вы успешно зарегистрировались"
+        this.resetForm ()
+        this.regButton.onclick = this.showRegForm.bind(this)
+    }
+  // Функция показывает форму для входа назначаем ее на клик кнопки входа
+    showLogIn () {
+        this.resetForm ()
+        this.hideInputs (true)
+        this.LogInButton.onclick = this.LogIn.bind(this)
+ 		    this.regButton.onclick = this.showRegForm.bind(this)
+    }
+// Функция для входа на сайт
+   async LogIn () {
+      if(!this.checkInputs()) return
       let user_Key = Sha256.hash(this.password.value + this.email.value)
-      let user = users.some (user => user.key === user_Key)
+      let users = await fetch('http://localhost:3000/users')
+                 .then(response => response.json())
+      let user = users.find(user => user.key === user_Key)
       if (user) {
-          console.log ("Юзер есть")
+          console.log ("Пользователь зарегистрирован")
           this.remove()
-          let elem = document.body.appendChild (
-                    document.createElement ( 'main-pizza' ))
-          elem.basketButton.style.display = "inline-block"
+          let elem = document.getElementsByTagName('main-pizza')[0]
+          elem.setAttribute ("flag","true")
+          elem.setAttribute("id",user.id)
+          document.cookie = `email=${user.email}`
       } else this.message.innerText = "Зарегистрируйтесь"
   }
-}
 
+}
 customElements.define ( 'registration-form', Registration )
-const reg = document.body.appendChild (
-  document.createElement ( 'registration-form' ))
