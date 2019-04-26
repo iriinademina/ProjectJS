@@ -134,7 +134,7 @@ class Main extends HTMLElement {
            },
            {
              display: "block",
-              zIndex: 200,
+             zIndex: 200,
              left: 0,
              ease: Back.easeOut
            } )
