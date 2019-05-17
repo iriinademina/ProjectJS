@@ -169,6 +169,7 @@ class Registration extends HTMLElement {
             !input.value ? input.style.border = "1px solid red" :
                                     ++counter
         })
+        console.log(counter)
         return counter
     }
 
@@ -179,7 +180,7 @@ class Registration extends HTMLElement {
     }
 
     async sendData (event) {
-        if(!this.checkInputs()) {
+        if(this.checkInputs()===1 || this.checkInputs()===2 ) {
             this.message.innerText = "Заполните все поля"
             return
         }
